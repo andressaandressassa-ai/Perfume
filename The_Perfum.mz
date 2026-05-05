@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>The Perfume Co. Africa | Luxo que Dura</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        /* Cores Sofisticadas */
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #111111;
+            --bg-card: #1a1a1a;
+            --text-primary: #f5f0e8;
+            --text-secondary: #b8a99a;
+            --gold: #d4af37;
+            --gold-light: #e8d5a3;
+            --gold-dark: #a0812c;
+            --border: #2a2520;
+            --card-shadow: 0 25px 40px -15px rgba(0,0,0,0.5);
+            --hover-glow: 0 0 20px rgba(212,175,55,0.3);
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+        
+        /* Padrão floral de luxo */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Cpath fill='%23d4af37' fill-opacity='0.03' d='M100 20 L110 45 L135 50 L115 70 L120 95 L100 82 L80 95 L85 70 L65 50 L90 45 Z'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: 0;
+        }
+        
+        .navbar {
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--gold);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo-circle {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.8rem;
+            font-family: 'Cormorant Garamond', serif;
+            color: #0a0a0a;
+            box-shadow: 0 0 15px rgba(212,175,55,0.5);
+        }
+        
+        .logo-text h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            letter-spacing: 1px;
+            color: var(--gold);
+        }
+        
+        .logo-text p {
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            color: var(--text-secondary);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 400;
+            transition: 0.3s;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover { color: var(--gold); }
+        
+        .theme-toggle {
+            background: transparent;
+            border: 1px solid var(--gold);
+            border-radius: 40px;
+            padding: 6px 14px;
+            cursor: pointer;
+            color: var(--gold);
+            transition: 0.3s;
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: #25D366;
+            color: white;
+            border-radius: 50px;
+            padding: 12px 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            z-index: 99;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+        
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; position: relative; z-index: 2; }
+        
+        /* Grid Produtos */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .product-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: var(--hover-glow);
+        }
+        
+        .product-img {
+            background: linear-gradient(145deg, #1e1e1e, #141414);
+            text-align: center;
+            padding: 2rem 0.5rem;
+            min-height: 230px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .product-img img, .product-img svg {
+            max-width: 140px;
+            max-height: 170px;
+            filter: drop-shadow(0 8px 20px rgba(0,0,0,0.5));
+        }
+        
+        .product-info { padding: 1.2rem; text-align: center; }
+        .product-name { font-family: 'Cormorant Garamond', serif; font-weight: 600; font-size: 1.3rem; }
+        .product-price { color: var(--gold); font-weight: 700; font-size: 1.3rem; margin: 8px 0; }
+        .product-stock { font-size: 0.7rem; background: rgba(212,175,55,0.15); display: inline-block; padding: 4px 12px; border-radius: 30px; }
+        
+        .btn-buy {
+            width: 100%;
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            color: #0a0a0a;
+            border: none;
+            padding: 12px 0;
+            border-radius: 40px;
+            font-weight: 700;
+            margin-top: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .btn-buy:hover { transform: scale(1.02); box-shadow: 0 5px 15px rgba(212,175,55,0.4); }
+        .btn-buy:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            align-items: center;
+            justify-content: center;
+            z-index: 1100;
+        }
+        .modal-content {
+            background: var(--bg-card);
+            max-width: 500px;
+            width: 90%;
+            border-radius: 24px;
+            padding: 2rem;
+            border-top: 3px solid var(--gold);
+        }
+        .form-group { margin-bottom: 1rem; }
+        .radio-group { display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 0.5rem; }
+        input, select {
+            width: 100%;
+            padding: 12px;
+            background: #2a2a2a;
+            border: 1px solid var(--border);
+            border-radius: 40px;
+            color: white;
+        }
+        .btn-gold {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border: none;
+            padding: 12px;
+            border-radius: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #0a0a0a;
+        }
+        
+        /* Feedbacks */
+        .feedbacks-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .feedback-card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 1.5rem;
+            border-left: 3px solid var(--gold);
+        }
+        .feedback-stars { color: var(--gold); margin-bottom: 0.8rem; }
+        .feedback-nome { font-weight: 600; margin-top: 1rem; color: var(--gold-light); }
+        
+        /* Admin */
+        .admin-panel {
+            background: #1a1a1a;
+            border-radius: 24px;
+            padding: 1.5rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: #050505;
+            border-top: 1px solid var(--border);
+            font-size: 0.8rem;
+        }
+        
+        @media (max-width: 700px) {
+            .navbar { flex-direction: column; gap: 1rem; }
+            .products-grid { gap: 1rem; }
+            .nav-links { justify-content: center; }
+        }
+        
+        /* Animações suaves */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .product-card, .feedback-card { animation: fadeIn 0.5s ease forwards; }
+    </style>
+</head>
+<body>
+<div class="navbar">
+    <div class="logo">
+        <div class="logo-circle">P</div>
+        <div class="logo-text">
+            <h1>The Perfume Co. Africa</h1>
+            <p>LUXO QUE PERFUME A ALMA</p>
+        </div>
+    </div>
+    <div class="nav-links">
+        <a href="#" data-page="catalogo">CATÁLOGO</a>
+        <a href="#" data-page="feedback">FEEDBACKS</a>
+        <a href="#" data-page="sobre">SOBRE NÓS</a>
+        <a href="#" data-page="produto">O PRODUTO</a>
+        <a href="#" data-page="admin">ADMIN</a>
+        <button class="theme-toggle" id="darkModeToggle"><i class="fas fa-moon"></i> MODO</button>
+    </div>
+</div>
+<main id="app-root" class="container"></main>
+<a href="https://wa.me/258857470543?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20perfumes%20The%20Perfume%20Co." class="whatsapp-float" target="_blank">
+    <i class="fab fa-whatsapp"></i> FALE CONNOSCO
+</a>
+
+<script>
+    // ========== DADOS ==========
+    const PERFUME_NAMES = [
+        "Channel No5", "Coco Mademoiselle", "Armani Si", "Jimmy Choo", "Burberry",
+        "Tommy Girl", "D&G Light Blue", "DKNY Delicious", "Black Opium", "Lady Million",
+        "Olympia", "Scandal", "Vanilla", "212 VIP Rose", "Lady Gaga",
+        "Fantasy", "Sunset", "Far Away", "Rebel", "Panache",
+        "Yes I Am", "Rio", "Gucci Rush", "Vanilla Fatale", "Eros Femme"
+    ];
+    const PRICE = 550;
+    let initialStocks = [10,8,5,12,6,9,4,7,11,3,14,5,9,6,10,7,8,4,12,5,6,9,10,7,8];
+    while(initialStocks.length < 25) initialStocks.push(8);
+    
+    const STORAGE_PERFUMES = "perfumeCo_estoque";
+    const STORAGE_PEDIDOS = "perfumeCo_pedidos";
+    const STORAGE_IMAGES = "perfumeCo_imagens";
+    const STORAGE_FEEDBACKS = "perfumeCo_feedbacks";
+    
+    let perfumes = [], pedidos = [], perfumeImages = {}, feedbacks = [];
+    
+    // Feedbacks iniciais
+    const initialFeedbacks = [
+        { nome: "Helena M.", stars: 5, texto: "Simplesmente maravilhoso! O perfume dura o dia todo, já é o meu favorito.", data: "2025-04-20" },
+        { nome: "Carla S.", stars: 5, texto: "Comprei o Black Opium e estou apaixonada. Entrega super rápida e a Andressa é muito atenciosa.", data: "2025-04-18" },
+        { nome: "Marta F.", stars: 4, texto: "Chegou bem embalado. A fragrância é idêntica ao original e fixa muito!", data: "2025-04-15" },
+        { nome: "Rute D.", stars: 5, texto: "Melhor compra do ano. 24h de duração é real. Já vou pedir outro!", data: "2025-04-12" }
+    ];
+    
+    function loadFeedbacks() { const stored = localStorage.getItem(STORAGE_FEEDBACKS); feedbacks = stored ? JSON.parse(stored) : [...initialFeedbacks]; }
+    function saveFeedbacks() { localStorage.setItem(STORAGE_FEEDBACKS, JSON.stringify(feedbacks)); }
+    function loadImages() { const stored = localStorage.getItem(STORAGE_IMAGES); perfumeImages = stored ? JSON.parse(stored) : {}; }
+    function saveImages() { localStorage.setItem(STORAGE_IMAGES, JSON.stringify(perfumeImages)); }
+    function loadPerfumes() { const stored = localStorage.getItem(STORAGE_PERFUMES); perfumes = stored ? JSON.parse(stored) : PERFUME_NAMES.map((nome, idx) => ({ id: idx, nome, preco: PRICE, quantidade: initialStocks[idx] })); savePerfumesToLocal(); }
+    function savePerfumesToLocal() { localStorage.setItem(STORAGE_PERFUMES, JSON.stringify(perfumes)); }
+    function loadPedidos() { const stored = localStorage.getItem(STORAGE_PEDIDOS); pedidos = stored ? JSON.parse(stored) : []; }
+    function savePedidos() { localStorage.setItem(STORAGE_PEDIDOS, JSON.stringify(pedidos)); }
+    
+    let currentPage = "catalogo";
+    let activeModalProduct = null;
+    let adminAuthenticated = false;
+    
+    function escapeHtml(str) { return str.replace(/[&<>]/g, function(m){ if(m==='&') return '&amp;'; if(m==='<') return '&lt;'; if(m==='>') return '&gt;'; return m;}); }
+    
+    function gerarFrascoSVG(corBase, idx) {
+        const corpoCor = corBase === 'preto' ? '#1a1a1a' : '#f8f8f5';
+        const detalheCor = '#d4af37';
+        return `<svg width="120" height="160" viewBox="0 0 100 160" xmlns="http://www.w3.org/2000/svg">
+            <rect x="35" y="15" width="30" height="16" rx="3" fill="${detalheCor}" />
+            <path d="M28,34 L72,34 L76,140 L24,140 Z" fill="${corpoCor}" stroke="#444" stroke-width="0.5" />
+            <rect x="32" y="65" width="36" height="38" rx="3" fill="${detalheCor}" opacity="0.85" />
+            <circle cx="50" cy="84" r="8" fill="${corpoCor}" opacity="0.9" />
+            <text x="50" y="135" text-anchor="middle" font-size="6" fill="${detalheCor}" font-family="serif">30ml</text>
+        </svg>`;
+    }
+    
+    function getProdutoImage(produto) {
+        if(perfumeImages[produto.id]) return `<img src="${perfumeImages[produto.id]}" alt="${escapeHtml(produto.nome)}">`;
+        const cor = (produto.id % 2 === 0) ? 'preto' : 'branco';
+        return gerarFrascoSVG(cor, produto.id);
+    }
+    
+    function renderCatalogo() {
+        const app = document.getElementById("app-root");
+        let html = `<h2 style="font-family:'Cormorant Garamond'; font-size:2.5rem; text-align:center;">✨ Coleção Exclusiva</h2>
+                    <p style="text-align:center; color:var(--text-secondary); margin-bottom:2rem;">30ml · 550 Mts · Entrega Sexta/Sábado</p>
+                    <div class="products-grid">`;
+        perfumes.forEach(p => {
+            const esgotado = p.quantidade <= 0;
+            html += `<div class="product-card"><div class="product-img">${getProdutoImage(p)}</div>
+                    <div class="product-info"><div class="product-name">${escapeHtml(p.nome)}</div>
+                    <div class="product-price">${PRICE} Mts</div>
+                    <div class="product-stock">📦 ${esgotado ? "Esgotado" : p.quantidade + " un"}</div>
+                    <button class="btn-buy" data-id="${p.id}" ${esgotado ? "disabled" : ""}>${esgotado ? "Indisponível" : "Quero este"}</button></div></div>`;
+        });
+        html += `</div>`;
+        app.innerHTML = html;
+        document.querySelectorAll('.btn-buy').forEach(btn => { if(!btn.disabled) btn.addEventListener('click', () => { const id = parseInt(btn.dataset.id); const prod = perfumes.find(p => p.id === id); if(prod && prod.quantidade>0) openModal(prod); }); });
+    }
+    
+    function renderFeedbacks() {
+        let html = `<h2 style="font-family:'Cormorant Garamond'; font-size:2.2rem; text-align:center;">💬 O que dizem os nossos clientes</h2>
+                    <div class="feedbacks-grid">`;
+        feedbacks.slice().reverse().forEach(f => {
+            let stars = "★".repeat(f.stars) + "☆".repeat(5-f.stars);
+            html += `<div class="feedback-card"><div class="feedback-stars">${stars}</div>
+                    <p>“${escapeHtml(f.texto)}”</p><div class="feedback-nome">— ${escapeHtml(f.nome)}</div>
+                    <small style="color:#666;">${f.data}</small></div>`;
+        });
+        html += `</div><div style="text-align:center; margin-top:2rem;"><button id="btnAddFeedback" class="btn-gold" style="padding:12px 30px;">✍️ Deixar Feedback</button></div>`;
+        document.getElementById("app-root").innerHTML = html;
+        document.getElementById("btnAddFeedback")?.addEventListener("click", () => {
+            const nome = prompt("Seu nome:");
+            if(!nome) return;
+            const texto = prompt("Seu comentário sobre o perfume:");
+            if(!texto) return;
+            const stars = parseInt(prompt("Quantas estrelas (1 a 5)?", "5"));
+            if(stars>=1 && stars<=5) {
+                feedbacks.push({ nome: nome, stars: stars, texto: texto, data: new Date().toISOString().split('T')[0] });
+                saveFeedbacks();
+                renderFeedbacks();
+            } else alert("Estrelas inválidas");
+        });
+    }
+    
+    function renderSobre() {
+        return `<div style="background:#111; border-radius:24px; padding:2.5rem; text-align:center;">
+            <h2 style="font-family:'Cormorant Garamond'; font-size:2.5rem;">Você merece sentir-se especial todos os dias.</h2>
+            <p style="font-size:1.2rem; margin:1.5rem 0; color:var(--text-secondary);">The Perfume Co. Africa nasceu para trazer o luxo ao seu dia a dia. Perfumes inspirados nas maiores casas de fragrância do mundo, com essência sul-africana e 24h de fixação.</p>
+            <p style="font-style:italic;">"A primeira impressão é a que fica. E o olfato não mente. Quando você exala uma fragrância marcante, as portas se abrem. Aqui, cada cliente é tratado como único, porque acreditamos que o prazer de cheirar bem é um direito, não um privilégio."</p>
+            <div style="margin-top:2rem;"><i class="fas fa-star" style="color:var(--gold);"></i> +500 clientes satisfeitos <i class="fas fa-star" style="color:var(--gold);"></i></div>
+        </div>`;
+    }
+    
+    function renderProduto() {
+        return `<div style="background:#111; border-radius:24px; padding:2.5rem;">
+            <h2 style="font-family:'Cormorant Garamond'; font-size:2rem;">✨ Sobre o nosso perfume</h2>
+            <div style="display:flex; flex-wrap:wrap; gap:2rem; margin-top:1.5rem;">
+                <div style="flex:1; min-width:200px;"><i class="fas fa-flask" style="color:var(--gold); font-size:2rem;"></i><h3>Base de Óleo</h3><p>Os nossos perfumes são à base de óleo, o que garante maior fixação e suavidade na pele, sem agredir.</p></div>
+                <div style="flex:1;"><i class="fas fa-clock" style="color:var(--gold); font-size:2rem;"></i><h3>24h de Duração</h3><p>Testado e aprovado! A fragrância permanece na pele por até 24 horas, evoluindo de forma suave e marcante.</p></div>
+                <div style="flex:1;"><i class="fas fa-hand-holding-heart" style="color:var(--gold); font-size:2rem;"></i><h3>Alta Concentração</h3><p>Extrato de perfume com alta concentração de óleos essenciais. Algumas gotas são suficientes para o dia todo.</p></div>
+            </div>
+            <p style="margin-top:1.5rem; padding:1rem; background:#1a1a1a; border-radius:16px;"><strong>💎 Porque nos escolher?</strong> Fragrâncias inspiradas nos maiores hits mundiais, preço justo (550 Mts) e um atendimento que se preocupa com você. O luxo não precisa ser inacessível.</p>
+        </div>`;
+    }
+    
+    function openModal(produto) {
+        activeModalProduct = produto;
+        const modal = document.getElementById('orderModal');
+        document.getElementById('modalPerfumeName').innerText = produto.nome;
+        document.getElementById('modalMaxStock').innerText = produto.quantidade;
+        document.getElementById('orderQty').max = produto.quantidade;
+        document.getElementById('orderQty').value = 1;
+        document.getElementById('orderName').value = '';
+        document.getElementById('orderWhatsapp').value = '';
+        document.querySelectorAll('input[name="dia"]').forEach(r => r.checked = false);
+        document.querySelectorAll('input[name="local"]').forEach(r => r.checked = false);
+        document.getElementById('modalConfirmPayArea').innerHTML = '';
+        document.getElementById('totalDisplay').innerText = `${PRICE} Mts`;
+        modal.style.display = 'flex';
+    }
+    function updateTotal() { const qty = parseInt(document.getElementById('orderQty').value)||0; document.getElementById('totalDisplay').innerText = `${qty * PRICE} Mts`; }
+    function closeModal() { document.getElementById('orderModal').style.display = 'none'; }
+    
+    function submitOrder() {
+        if(!activeModalProduct) return;
+        const qty = parseInt(document.getElementById('orderQty').value);
+        if(qty<1 || qty > activeModalProduct.quantidade) { alert(`Estoque: ${activeModalProduct.quantidade}`); return; }
+        const nome = document.getElementById('orderName').value.trim();
+        const whats = document.getElementById('orderWhatsapp').value.trim();
+        if(!nome) { alert("Nome é obrigatório"); return; }
+        if(!/^8[2-9]\d{7}$|^7\d{8}$/.test(whats)) { alert("WhatsApp inválido"); return; }
+        let dia = null; document.querySelectorAll('input[name="dia"]').forEach(r => { if(r.checked) dia = r.value; });
+        if(!dia) { alert("Selecione Sexta ou Sábado"); return; }
+        let local = null; document.querySelectorAll('input[name="local"]').forEach(r => { if(r.checked) local = r.value; });
+        if(!local) { alert("Selecione local"); return; }
+        const total = qty * PRICE;
+        alert(`💎 M-PESA\nValor: ${total} Mts\nAndressa Balate - 857470543\nApós pagar clique em "JÁ PAGUEI"`);
+        const confirmDiv = document.getElementById('modalConfirmPayArea');
+        confirmDiv.innerHTML = `<div style="background:rgba(212,175,55,0.2); padding:12px; border-radius:20px; margin:10px 0;"><strong>Total: ${total} Mts</strong></div><button id="confirmPayBtnFinal" class="btn-gold" style="width:100%;">✅ JÁ PAGUEI</button>`;
+        document.getElementById('confirmPayBtnFinal').onclick = () => {
+            if(activeModalProduct.quantidade >= qty) {
+                activeModalProduct.quantidade -= qty;
+                savePerfumesToLocal();
+                pedidos.push({ id: Date.now(), nomeCliente: nome, whatsapp: whats, perfumeId: activeModalProduct.id, perfumeNome: activeModalProduct.nome, quantidade: qty, diaEntrega: dia, localRetirada: local, total, status: "pendente", timestamp: new Date().toISOString() });
+                savePedidos();
+                if(currentPage === "catalogo") renderCatalogo();
+                window.open(`https://wa.me/258857470543?text=${encodeURIComponent(`Pedido: ${nome}\nPerfume: ${activeModalProduct.nome}\nQtd: ${qty}\nDia: ${dia}\nLocal: ${local}\nTotal: ${total} Mts`)}`, '_blank');
+                alert("Pedido registado! Obrigada.");
+                confirmDiv.innerHTML = '';
+                closeModal();
+            } else alert("Erro estoque");
+        };
+    }
+    
+    function renderAdmin() {
+        if(!adminAuthenticated) {
+            document.getElementById("app-root").innerHTML = `<div style="max-width:400px;margin:2rem auto;"><div style="background:#111;padding:2rem;border-radius:24px;"><h3>🔐 Área Restrita</h3><input type="password" id="adminPassInput" placeholder="Senha" style="width:100%;padding:12px;margin:1rem 0;border-radius:40px;"><button id="adminLoginBtn" class="btn-gold">Entrar</button></div></div>`;
+            document.getElementById("adminLoginBtn")?.addEventListener("click", () => { if(document.getElementById("adminPassInput").value === "admin123") { adminAuthenticated=true; renderAdmin(); } else alert("Senha incorreta"); });
+            return;
+        }
+        let html = `<div class="admin-panel"><h2>👑 Painel Administrativo</h2>
+        <h3>📦 Estoque & Imagens</h3>`;
+        perfumes.forEach(p => {
+            html += `<div style="padding:10px; border-bottom:1px solid #333;">
+                        <strong>${escapeHtml(p.nome)}</strong>
+                        <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
+                            <input type="number" id="stock-${p.id}" value="${p.quantidade}" style="width:80px;" min="0">
+                            <button class="updateStockBtn" data-id="${p.id}" style="background:var(--gold);border:none;padding:5px 12px;border-radius:20px;">Atualizar</button>
+                            <input type="file" accept="image/*" class="upload-img" data-id="${p.id}" style="font-size:12px;">
+                            ${perfumeImages[p.id] ? `<img src="${perfumeImages[p.id]}" style="width:40px;height:40px;object-fit:contain;">` : ''}
+                        </div>
+                    </div>`;
+        });
+        html += `<hr/><h3>📋 Pedidos</h3><div id="adminOrdersList"><table style="width:100%"><tr><th>Cliente</th><th>Perfume</th><th>Status</th><th>Ação</th></tr>`;
+        pedidos.slice().reverse().forEach(ped => {
+            html += `<tr><td>${escapeHtml(ped.nomeCliente)}<br/><small>${ped.whatsapp}</small></td><td>${escapeHtml(ped.perfumeNome)}</td><td id="status-${ped.id}">${ped.status==="entregue"?"✅ Entregue":"⏳ Pendente"}</td><td>${ped.status!=="entregue"?`<button class="markDelivered" data-id="${ped.id}" style="background:var(--gold);border:none;padding:4px 12px;border-radius:20px;">Marcar</button>`:"✔️"}</td></tr>`;
+        });
+        html += `</table></div><button id="refreshBtn" class="btn-gold" style="margin-top:1rem;">Atualizar</button></div>`;
+        document.getElementById("app-root").innerHTML = html;
+        document.querySelectorAll('.updateStockBtn').forEach(btn => { btn.addEventListener('click', () => { const id = parseInt(btn.dataset.id); const val = parseInt(document.getElementById(`stock-${id}`).value); if(!isNaN(val) && val>=0) { perfumes.find(p=>p.id===id).quantidade = val; savePerfumesToLocal(); if(currentPage==="catalogo") renderCatalogo(); alert("OK"); } }); });
+        document.querySelectorAll('.upload-img').forEach(input => { input.addEventListener('change', (e) => { const file = e.target.files[0]; const pid = parseInt(input.dataset.id); if(file) { const reader = new FileReader(); reader.onload = (ev) => { perfumeImages[pid] = ev.target.result; saveImages(); if(currentPage==="catalogo") renderCatalogo(); renderAdmin(); }; reader.readAsDataURL(file); } }); });
+        document.querySelectorAll('.markDelivered').forEach(btn => { btn.addEventListener('click', () => { const pid = parseInt(btn.dataset.id); const ped = pedidos.find(p=>p.id===pid); if(ped) { ped.status = "entregue"; savePedidos(); renderAdmin(); } }); });
+        document.getElementById('refreshBtn')?.addEventListener('click', () => renderAdmin());
+    }
+    
+    function navigateTo(page) {
+        currentPage = page;
+        if(page === "catalogo") renderCatalogo();
+        else if(page === "feedback") renderFeedbacks();
+        else if(page === "sobre") document.getElementById("app-root").innerHTML = renderSobre();
+        else if(page === "produto") document.getElementById("app-root").innerHTML = renderProduto();
+        else if(page === "admin") renderAdmin();
+        else renderCatalogo();
+    }
+    
+    function initDarkMode() { const stored = localStorage.getItem("theme"); if(stored === "light") document.body.classList.add("light"); }
+    function createModal() {
+        const modalDiv = document.createElement('div'); modalDiv.id = 'orderModal'; modalDiv.className = 'modal';
+        modalDiv.innerHTML = `<div class="modal-content"><h3>🛍️ <span id="modalPerfumeName"></span></h3>
+            <div class="form-group"><label>Quantidade (max: <span id="modalMaxStock"></span>)</label><input type="number" id="orderQty" min="1" value="1"><button onclick="updateTotal()" style="margin-top:5px;">Calcular</button></div>
+            <div class="form-group"><label>Dia</label><div class="radio-group"><label><input type="radio" name="dia" value="Sexta"> Sexta</label><label><input type="radio" name="dia" value="Sábado"> Sábado</label></div></div>
+            <div class="form-group"><label>Local</label><div class="radio-group"><label><input type="radio" name="local" value="Matola Shopping"> Matola Shopping</label><label><input type="radio" name="local" value="Baixa Maputo"> Baixa Maputo</label></div></div>
+            <div class="form-group"><label>Seu nome</label><input type="text" id="orderName"></div>
+            <div class="form-group"><label>WhatsApp</label><input type="tel" id="orderWhatsapp" placeholder="823456789"></div>
+            <div class="total-price" style="background:rgba(212,175,55,0.2);padding:10px;border-radius:40px;">Total: <strong id="totalDisplay">0 Mts</strong></div>
+            <div id="modalConfirmPayArea"></div>
+            <div style="display:flex;gap:10px;margin-top:1rem;"><button class="btn-gold" id="submitOrderBtn">Confirmar Pedido</button><button id="closeModalBtn" style="background:#333;">Cancelar</button></div></div>`;
+        document.body.appendChild(modalDiv);
+        document.getElementById('submitOrderBtn')?.addEventListener('click', submitOrder);
+        document.getElementById('closeModalBtn')?.addEventListener('click', closeModal);
+        document.getElementById('orderQty')?.addEventListener('input', updateTotal);
+        window.updateTotal = updateTotal;
+    }
+    
+    function start() {
+        loadImages(); loadPerfumes(); loadPedidos(); loadFeedbacks(); createModal(); initDarkMode(); renderCatalogo();
+        document.querySelectorAll('[data-page]').forEach(link => { link.addEventListener('click', (e) => { e.preventDefault(); const pg = link.dataset.page; if(pg==="admin") adminAuthenticated=false; navigateTo(pg); }); });
+    }
+    start();
+</script>
+<footer>
+    <p>The Perfume Co. Africa - 30ml de inspiração | 📍 Matola Shopping / Baixa Maputo</p>
+    <p style="font-size:0.7rem;">📞 M-PESA: Andressa Balate - 857470543 | Rev: Andressa</p>
+    <p style="font-size:0.7rem; margin-top:8px;">✨ Perfumes à base de óleo com 24h de fixação ✨</p>
+</footer>
+</body>
+</html>
