@@ -489,7 +489,8 @@
                         <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px;">
                             <input type="number" id="stock-${p.id}" value="${p.quantidade}" style="width:80px;" min="0">
                             <button class="updateStockBtn" data-id="${p.id}" style="background:var(--gold);border:none;padding:5px 12px;border-radius:20px;">Atualizar</button>
-                            <input type="file" accept="image/*" class="upload-img" data-id="${p.id}" style="font-size:12px;">
+                            <input type="text" id="imgUrl-${p.id}" placeholder="Link da imagem (imgbb)" style="width:200px; font-size:11px; background:#333; color:white; padding:6px; border-radius:20px;">
+<button class="setImgUrlBtn" data-id="${p.id}" style="background:var(--gold); border:none; padding:4px 10px; border-radius:20px;">Aplicar URL</button>
                             ${perfumeImages[p.id] ? `<img src="${perfumeImages[p.id]}" style="width:40px;height:40px;object-fit:contain;">` : ''}
                         </div>
                     </div>`;
@@ -502,6 +503,19 @@
         document.getElementById("app-root").innerHTML = html;
         document.querySelectorAll('.updateStockBtn').forEach(btn => { btn.addEventListener('click', () => { const id = parseInt(btn.dataset.id); const val = parseInt(document.getElementById(`stock-${id}`).value); if(!isNaN(val) && val>=0) { perfumes.find(p=>p.id===id).quantidade = val; savePerfumesToLocal(); if(currentPage==="catalogo") renderCatalogo(); alert("OK"); } }); });
         document.querySelectorAll('.upload-img').forEach(input => { input.addEventListener('change', (e) => { const file = e.target.files[0]; const pid = parseInt(input.dataset.id); if(file) { const reader = new FileReader(); reader.onload = (ev) => { perfumeImages[pid] = ev.target.result; saveImages(); if(currentPage==="catalogo") renderCatalogo(); renderAdmin(); }; reader.readAsDataURL(file); } }); });
+        document.querySelectorAll('.setImgUrlBtn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const id = parseInt(btn.dataset.id);
+        const url = document.getElementById(`imgUrl-${id}`).value.trim();
+        if(url) {
+            perfumeImages[id] = url;
+            saveImages();
+            if(currentPage === "catalogo") renderCatalogo();
+            alert("Imagem actualizada!");
+            renderAdmin();
+        } else alert("Cole um link válido");
+    });
+});
         document.querySelectorAll('.markDelivered').forEach(btn => { btn.addEventListener('click', () => { const pid = parseInt(btn.dataset.id); const ped = pedidos.find(p=>p.id===pid); if(ped) { ped.status = "entregue"; savePedidos(); renderAdmin(); } }); });
         document.getElementById('refreshBtn')?.addEventListener('click', () => renderAdmin());
     }
